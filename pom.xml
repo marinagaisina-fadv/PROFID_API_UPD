@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.marinagaisina</groupId>
-	<artifactId>PROFIT_API</artifactId>
+	<artifactId>PROFID_API</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ProfitAPI</name>
+	<name>PROFID_API</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>19</java.version>

@@ -1,4 +1,4 @@
-# PROFIT_API
+# PROFID_API
 
 The API Application has two sets of endpoints: `ExternalApiController` and `EmployeeController`.
 The first set is designed for fetching and posting data to/from an external API (vendor).
