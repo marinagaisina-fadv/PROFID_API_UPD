@@ -1,0 +1,78 @@
+Code Review
+Description:
+Review the provided UserController code and suggest improvements for code quality, security, and maintainability.
+Deliverables:
+Annotated review comments.
+High-level summary of recommended improvements and rationale.
+Code to Review:
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+        Optional<User> user = userService.findUserById(id);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<String> createUser(@RequestBody Map<String, String> payload) {
+        String username = payload.get("username");
+        String password = payload.get("password");
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setPassword(password); // Sensitive data issue: plain-text storage
+        userService.saveUser(newUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
+    }
+
+    @PutMapping("/{id}/update")
+    public ResponseEntity<String> updateUser(@PathVariable("id") Long id, @RequestBody Map<String, String> payload) {
+        Optional<User> existingUser = userService.findUserById(id);
+        if (existingUser.isPresent()) {
+            User user = existingUser.get();
+            user.setUsername(payload.getOrDefault("username", user.getUsername()));
+            user.setPassword(payload.getOrDefault("password", user.getPassword())); // Plain-text storage and improper validation
+            userService.saveUser(user);
+            return ResponseEntity.ok("User updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") Long id) {
+        boolean deleted = userService.deleteUserById(id);
+        if (deleted) {
+            return ResponseEntity.ok("User deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    }
+}
+
+#####
+
+1. Avoid storing passwords in plain text. Use a secure hashing technique (e.g., BCrypt).
+   Improvement: Secure the password before storage.
+
+2. Consider using constructor-based injection instead of field injection. It enhances testability and promotes immutability.
+   Improvement: Replace `@Autowired` field injection with constructor injection.
+
+3. Consider using `orElseThrow` to simplify handling of `Optional`.
+   Improvement: Use `orElseThrow` with a custom exception that maps to a `404 NOT FOUND`.
+
+4. Avoid using raw `Map<String, String>` for request bodies. It lacks validation and structure.
+   Improvement: Create a `UserDTO` for input, and add validation annotations.
+
+5. Update endpoint paths to be more RESTful (`/create` to `/`, `/getUser/{id}` to `/{id}`, `/updateUser/{id}` to `/{id}`).
+
+6. Error Handling: Consider handling or logging exceptions globally using `@ControllerAdvice`.
+7. Logging: Add logging statements at appropriate levels (INFO, DEBUG, ERROR) for traceability.

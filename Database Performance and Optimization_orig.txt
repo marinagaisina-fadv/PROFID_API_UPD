@@ -1,0 +1,12 @@
+Database Performance and Optimization
+Description: Your team reported slow response times due to database performance issues involving frequent read-heavy operations.
+Task:
+Propose high-level steps to diagnose and resolve performance issues.
+Describe optimizations such as indexing strategies, query restructuring, and caching layers.
+Provide pros and cons of your approach.
+
+###
+
+To diagnose and resolve database performance issues with read-heavy operations, start by monitoring and analyzing the queries to identify bottlenecks using tools like query planners and slow query logs. Evaluate and optimize indexing strategies by adding indexes on frequently queried columns and considering composite indexes for multi-column criteria. Restructure queries to simplify them, removing unnecessary complexity and optimizing SQL commands. Implement caching layers both at the application-level with tools like Redis or Memcached, and explore database-supported caching if applicable. Consider scaling strategies such as the use of read replicas to distribute the load. 
+
+Pros of this approach include targeted, effective optimizations that improve query response times and scalability. However, it can introduce complexity in database management and require additional resources and maintenance, especially with infrastructure enhancements like caching or read replicas.

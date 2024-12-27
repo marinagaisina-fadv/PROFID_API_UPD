@@ -5,7 +5,7 @@ The first set is designed for fetching and posting data to/from an external API 
 A fake API with a made-up URL and credentials is implemented to simulate the external API.
 The code demonstrates a workflow for obtaining and pushing data from/to the vendor API,
 and storing to the internal database.
-The second set of endpoints is used for managing the internal database.
+The second set of endpoints is used for manipulating the internal database.
 All connections require authentication using basic auth.
 The credentials are: username: `user`, password: `password`.
 
