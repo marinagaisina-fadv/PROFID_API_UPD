@@ -211,7 +211,7 @@ public class EmployeeValidationTest {
                 .email("johndoe@gmail.com")
                 .build();
         employeeService.addEmployee(employee);
-        employeeService.updateEmployee(new EmployeeEntity(employee.getId(), "Larisa","Johnson", LocalDate.of(1990, 12, 10), "johnson@gmail.com"));
+        employeeService.updateEmployee(new EmployeeEntity(employee.getId(), "Larisa","Johnson", LocalDate.of(1990, 12, 10), "johnson@gmail.com", null));
         Set<ConstraintViolation<EmployeeEntity>> constraintViolations = validator.validate(employee, AllEmployees.class);
         assertThat(constraintViolations).isEmpty();
         //clean

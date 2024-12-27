@@ -1,3 +1,4 @@
-/Application/target/
+/target/
 /.idea
-/Application/Application.iml
+/Application.iml
+/Build-Restful-API-With-Spring-Boot-using-PostgreSQL-and-Spring-Data-JPA/Build Restful API With Spring Boot using PostgreSQL and Spring Data JPA/Application/Application.iml

@@ -12,6 +12,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @Builder
@@ -42,5 +45,19 @@ public class EmployeeEntity {
     @Email(message = "Please provide a valid email address")
     @NotBlank(message = "email must not be blank")
     @Column(name = "email")
-    private  String email;
+    private String email;
+
+    @Column(name = "records")
+    private String records;
+
+    public List<String> getRecordsList() {
+        if (records == null || records.isEmpty()) {
+            return List.of();
+        }
+        return Arrays.asList(records.split(","));
+    }
+
+    public void setRecordsFromList(List<String> recordsList) {
+        this.records = String.join(",", recordsList);
+    }
 }
